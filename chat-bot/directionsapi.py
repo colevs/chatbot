@@ -3,7 +3,7 @@ from location import Location as lc
 import requests
 import json
 
-API_KEY = "AIzaSyDzBqKvMiLOTM6s2z-GscqMYTwOkFjA_s0"
+API_KEY = "PLACEHOLDER"
 URL1 = "https://maps.googleapis.com/maps/api/directions/json?origin="
 URL2 = "&destination="
 URL3 = "&key="
@@ -32,7 +32,10 @@ class GoogleDirectionsAPI(object):
 		    print('error: ' + str(resp.status_code))
 		    return None
 		else:
-			response = resp.json()['routes'][0]['legs'][0]['steps']
-			for step in response:
-				del step['polyline']
-			return response
+			try:
+				response = resp.json()['routes'][0]['legs'][0]['steps']
+				for step in response:
+					del step['polyline']
+				return response
+			except:
+				return None
