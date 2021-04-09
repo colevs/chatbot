@@ -6,6 +6,7 @@ from responsechatbot import ChatbotResponse as cr
 from posTag_spellCheck import SpellCheckPosTag as scpt
 from outofscoperesponse import OutOfScope as oos
 
+TESTMODE = True
 
 nltk.download('wordnet')
 nltk.download('punkt')
@@ -18,11 +19,15 @@ def show_entry_fields():
 
 def insertContent():
     reply = ""
-    question = e1.get()   
-    try:
+    question = e1.get()
+
+    if TESTMODE:
         reply = cr.getResponse(question)
-    except:
-        reply = oos.getResponse()
+    else:
+        try:
+            reply = cr.getResponse(question)
+        except:
+            reply = oos.getResponse()
 
     print(reply)
     T.insert(tk.END, "User: " + question + '\n', "odd")

@@ -1,4 +1,5 @@
 import re
+from PIL import Image
 
 # this class is responsible for formatting the data requested as a string that can be used as a response by the chat bot
 # each function here takes in the returned data of its corresponding data request function, as well as the full list of entities
@@ -56,6 +57,18 @@ class ResponseFormat(object):
 			response += poi[stringsplitpoint:poi.find(',', stringsplitpoint+1)] + ", "
 		response = response[:-2]
 		response += ".\n"
+		return response
+
+	def getStaticMapsFormat(img, entities):
+		places = entities['wit$location:location']
+		location = ''
+		if len(places) == 0:
+			location = 'here'
+		else:
+			location = places[0]['value']
+
+		response = 'Here is the map I found for ' + location + '\n'
+		img.show()
 		return response
 
 	def getDirectionsFormat(directions, entities):
