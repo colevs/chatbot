@@ -1,3 +1,5 @@
+import re
+
 # this class is responsible for formatting the data requested as a string that can be used as a response by the chat bot
 # each function here takes in the returned data of its corresponding data request function, as well as the full list of entities
 # it returns a string that the bot should respond with
@@ -55,3 +57,30 @@ class ResponseFormat(object):
 		response = response[:-2]
 		response += ".\n"
 		return response
+
+	def getDirectionsFormat(directions, entities):
+		places = entities['wit$location:location']
+		origin = ''
+		destination = ''
+
+		if len(places) > 1:
+			origin = places[0]['value']
+			destination = places[1]['value']
+		else:
+			origin = 'here'
+			destination = places[0]['value']
+
+		response = "The directions from " + origin + " to " + destination + " are as follows:\n"
+		for step in directions:
+			instructions = ResponseFormat.cleanhtml(step['html_instructions'])
+			if 'maneuver' in step:
+				response += instructions + '\n'
+			else:
+				response += instructions + ' for ' + step['distance']['text'] + '\n'
+
+		return response
+
+	def cleanhtml(raw_html):
+		cleanr = re.compile('<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});')
+		cleantext = re.sub(cleanr, '', raw_html)
+		return cleantext

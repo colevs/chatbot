@@ -4,7 +4,7 @@ import json
 import requests
 
 URL = "https://api.wit.ai/message"
-API_KEY = "6LLX376UX4FWFSX5KVNLSRPCXSECLGXE"
+API_KEY = "HNV4DWLZAB6365NEWYGGR24SFL32XTUJ"
 headers  = {
 	"Authorization" : "Bearer " + API_KEY
 }

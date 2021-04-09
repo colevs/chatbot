@@ -1,5 +1,6 @@
 import json
 from witapi import WitAPI as wa
+from directionsapi import GoogleDirectionsAPI as da
 from location import Location as lc
 from responseformat import ResponseFormat as rf
 from timechatbot import TimeChatbot as tc
@@ -16,7 +17,8 @@ witIntents = {
 	'point_of_interest' : gi.get_point_of_interest,
 	'forecast' : gi.get_weather,
 	'wit$get_temperature' : gi.get_temperature,
-	'wit$get_time' : tc.getLocalTime
+	'wit$get_time' : tc.getLocalTime,
+	'get_directions' : da.sendRequest
 }
 
 witIntentResponseFormats = {
@@ -26,7 +28,8 @@ witIntentResponseFormats = {
 	'point_of_interest' : rf.getPointOfInterestFormat,
 	'forecast' : rf.getWeatherFormat,
 	'wit$get_temperature' : rf.getTemperatureFormat,
-	'wit$get_time' : rf.getLocalTimeFormat
+	'wit$get_time' : rf.getLocalTimeFormat,
+	'get_directions' : rf.getDirectionsFormat
 }
 
 class ChatbotResponse(object):
