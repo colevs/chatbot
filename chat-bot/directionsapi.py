@@ -1,9 +1,10 @@
 from location import Location as lc
 
+import apikey
 import requests
 import json
 
-API_KEY = "PLACEHOLDER"
+API_KEY = apikey.getKey()
 URL1 = "https://maps.googleapis.com/maps/api/directions/json?origin="
 URL2 = "&destination="
 URL3 = "&key="
