@@ -7,15 +7,13 @@ import requests
 import json
 
 API_KEY = apikey.getKey()
-ZOOM_LEVEL = '12'
 SIZE = '400x400'
 
-URL1 = "https://maps.googleapis.com/maps/api/staticmap?center="
-URL2 = "&zoom="
-URL3 = '&size='
-URL4 = '&key='
+URL1 = "https://maps.googleapis.com/maps/api/streetview?size="
+URL2 = "&location="
+URL3 = "&fov=80&heading=70&pitch=0&key="
 
-class GoogleStaticMapsAPI(object):
+class GoogleStreetViewAPI(object):
 	def sendRequest(entities):
 		places = entities['wit$location:location']
 		location = ''
@@ -27,7 +25,7 @@ class GoogleStaticMapsAPI(object):
 		locationCoords = lc.getLocation(location)
 		locationCoordsString = str(locationCoords[0]) + ',' + str(locationCoords[1])
 
-		resp = requests.get(URL1 + locationCoordsString + URL2 + ZOOM_LEVEL + URL3 + SIZE + URL4 + API_KEY)
+		resp = requests.get(URL1 + SIZE + URL2 + locationCoordsString + URL3 + API_KEY)
 
 		if resp.status_code != 200:
 		    print('error: ' + str(resp.status_code))

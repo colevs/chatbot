@@ -71,6 +71,18 @@ class ResponseFormat(object):
 		img.show()
 		return response
 
+	def getStreetViewFormat(img, entities):
+		places = entities['wit$location:location']
+		location = ''
+		if len(places) == 0:
+			location = 'here'
+		else:
+			location = places[0]['value']
+
+		response = 'Here is the street view I found for ' + location + '\n'
+		img.show()
+		return response
+
 	def getDirectionsFormat(directions, entities):
 		places = entities['wit$location:location']
 		origin = ''

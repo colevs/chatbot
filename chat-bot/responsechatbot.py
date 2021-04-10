@@ -2,6 +2,7 @@ import json
 from witapi import WitAPI as wa
 from directionsapi import GoogleDirectionsAPI as da
 from staticmapsapi import GoogleStaticMapsAPI as sma
+from streetviewapi import GoogleStreetViewAPI as sva
 from location import Location as lc
 from responseformat import ResponseFormat as rf
 from timechatbot import TimeChatbot as tc
@@ -20,7 +21,8 @@ witIntents = {
 	'wit$get_temperature' : gi.get_temperature,
 	'wit$get_time' : tc.getLocalTime,
 	'get_directions' : da.sendRequest,
-	'get_static_map' : sma.sendRequest
+	'get_static_map' : sma.sendRequest,
+	'get_street_view' : sva.sendRequest
 }
 
 witIntentResponseFormats = {
@@ -32,7 +34,8 @@ witIntentResponseFormats = {
 	'wit$get_temperature' : rf.getTemperatureFormat,
 	'wit$get_time' : rf.getLocalTimeFormat,
 	'get_directions' : rf.getDirectionsFormat,
-	'get_static_map' : rf.getStaticMapsFormat
+	'get_static_map' : rf.getStaticMapsFormat,
+	'get_street_view' : rf.getStreetViewFormat
 }
 
 class ChatbotResponse(object):
@@ -40,7 +43,7 @@ class ChatbotResponse(object):
 	# getResponse allows you to send in a question or statement as a string, and returns a string that is the response
 	# it does this by calling the appropriate function for the intent, using the dictionaries above
 	def getResponse(question):
-		question = scpt.check_spelling_update(question)
+		#question = scpt.check_spelling_update(question)
 		question = sr.replaceSynonyms(question)
 		jsonData = wa.sendRequest(question)
 
