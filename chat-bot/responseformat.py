@@ -84,6 +84,8 @@ class ResponseFormat(object):
 		return response
 
 	def getDirectionsFormat(directions, entities):
+		if directions is None:
+			return 'Sorry, no route was found.\n'
 		places = entities['wit$location:location']
 		origin = ''
 		destination = ''
